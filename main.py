@@ -1,19 +1,27 @@
-from PyQt6.QtWidgets import QApplication, QWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QTextEdit
+from PySide6.QtCore import QSize
+import sys
+import os
 
-import sys # Только для доступа к аргументам командной строки
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setFixedSize(QSize(400, 300))
+        self.setWindowTitle("GUI Pulse")
 
-# Приложению нужен один (и только один) экземпляр QApplication.
-# Передаём sys.argv, чтобы разрешить аргументы командной строки для приложения.
-# Если не будете использовать аргументы командной строки, QApplication([]) тоже работает
-app = QApplication(sys.argv)
-
-# Создаём виджет Qt — окно.
-window = QWidget()
-window.show()  # Важно: окно по умолчанию скрыто.
-
-# Запускаем цикл событий.
-app.exec()
+        text_edit = QTextEdit(self)
+        text_edit.setGeometry(0, 0, 360, 260)
+        
+        
+        text_edit.setText("")
+        
+        
+        text_edit.setReadOnly(True)
 
 
-# Приложение не доберётся сюда, пока вы не выйдете и цикл
-# событий не остановится.
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())
